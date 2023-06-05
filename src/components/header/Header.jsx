@@ -14,10 +14,10 @@ export default function Header() {
             Surveyor
           </Typography>
           <div className='flex gap-4'>
-            <Button variant="contained" color="secondary">
+            <Button variant="contained" color="secondary" sx={{borderRadius: '12px'}}>
               Login
             </Button>
-            <Button variant="contained" color="secondary">
+            <Button variant="contained" color="secondary" sx={{borderRadius: '12px'}}>
               Sign Up
             </Button>
           </div>

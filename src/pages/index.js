@@ -9,10 +9,10 @@ export default function Home() {
           Welcome to Surveyor. What would you like to do?
         </Typography>
         <div className="flex gap-24">
-          <Button variant="contained" color="primary" size="large" className='rounded-xl'>
+          <Button variant="contained" color="primary" size="large" sx={{borderRadius: '12px'}}>
             Create a Survey
           </Button>
-          <Button variant="contained" color="secondary" size="large" className='rounded-xl'>
+          <Button variant="contained" color="secondary" size="large" sx={{borderRadius: '12px'}}>
             Answer a Survey
           </Button>
         </div>
