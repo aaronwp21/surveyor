@@ -10,7 +10,7 @@ export default function Header() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h4" component="h2" sx={{ flexGrow: 1 }}>
+          <Typography color='secondary' variant="h4" component="h2" sx={{ flexGrow: 1 }}>
             Surveyor
           </Typography>
           <div className='flex gap-4'>

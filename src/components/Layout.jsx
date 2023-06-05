@@ -3,15 +3,12 @@ import Header from './header/Header';
 
 function Layout({ children }) {
   return (
-    <>
+    <div className='flex flex-col h-screen'>
       <header>
         <Header />
       </header>
-      <main>{children}</main>
-      <footer>
-        <div>Footer</div>
-      </footer>
-    </>
+      <main className='h-full'>{children}</main>
+    </div>
   );
 }
 
