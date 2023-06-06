@@ -10,11 +10,11 @@ export default function SignUp() {
   const submitHandler = ({ email, password }) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then(() => {
-        router.replace('/')
+        router.replace('/');
       })
       .catch((error) => {
         console.log(error);
-      })
+      });
   };
 
   return (

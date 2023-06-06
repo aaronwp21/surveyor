@@ -1,12 +1,21 @@
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import Typography from '@mui/material/Typography';
 import AuthForm from '@/components/forms/AuthForm';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/firebase';
 
 export default function Login() {
-  const submitHandler = (vals) => {
-    console.log(vals);
+  let router = useRouter();
+
+  const submitHandler = ({ email, password }) => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        router.replace('/');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (

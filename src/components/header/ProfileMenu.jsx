@@ -26,7 +26,9 @@ function ProfileMenu() {
   const handleSignOut = () => {
     handleCloseUserMenu();
     signOut(auth)
-      .then(() => {router.replace('/')})
+      .then(() => {
+        router.replace('/');
+      })
       .catch((error) => console.log(error));
   };
 
