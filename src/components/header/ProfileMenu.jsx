@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { signOut } from 'firebase/auth';
 import { auth } from '@/firebase';
+import useStore, { setUser } from '@/store/store';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
@@ -11,6 +12,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 
 function ProfileMenu() {
+  const changeUser = useStore(setUser);
   let router = useRouter();
 
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -24,9 +26,9 @@ function ProfileMenu() {
   };
 
   const handleSignOut = () => {
-    handleCloseUserMenu();
     signOut(auth)
       .then(() => {
+        changeUser(null)
         router.replace('/');
       })
       .catch((error) => console.log(error));

@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyA64nP898116OydcVWFfO6ywRvehJePQ4o',
@@ -13,13 +13,5 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-
-onAuthStateChanged(auth, (user) => {
-  if(user) {
-    localStorage.setItem("loggedIn", "1");
-  } else {
-    localStorage.removeItem("loggedIn");
-  }
-})
 
 export { auth };
