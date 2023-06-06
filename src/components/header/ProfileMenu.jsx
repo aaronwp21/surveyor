@@ -1,21 +1,18 @@
 import React, { useState } from 'react';
-import AppBar from '@mui/material/AppBar';
+import { useRouter } from 'next/router';
+import { signOut } from 'firebase/auth';
+import { auth } from '@/firebase';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-
-const settings = ['My Surveys', 'Logout'];
 
 function ProfileMenu() {
+  let router = useRouter();
+
   const [anchorElUser, setAnchorElUser] = useState(null);
 
   const handleOpenUserMenu = (event) => {
@@ -24,6 +21,13 @@ function ProfileMenu() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleSignOut = () => {
+    handleCloseUserMenu();
+    signOut(auth)
+      .then(() => {router.replace('/')})
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -49,11 +53,12 @@ function ProfileMenu() {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        {settings.map((setting) => (
-          <MenuItem key={setting} onClick={handleCloseUserMenu}>
-            <Typography textAlign="center">{setting}</Typography>
-          </MenuItem>
-        ))}
+        <MenuItem onClick={handleCloseUserMenu}>
+          <Typography textAlign={'center'}>My Surveys</Typography>
+        </MenuItem>
+        <MenuItem onClick={handleSignOut}>
+          <Typography textAlign={'center'}>Logout</Typography>
+        </MenuItem>
       </Menu>
     </Box>
   );
