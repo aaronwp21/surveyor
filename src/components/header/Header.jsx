@@ -1,15 +1,20 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { auth } from '@/firebase';
 import ProfileMenu from './ProfileMenu';
+import { auth } from '@/firebase';
 
 export default function Header() {
   const user = auth.currentUser;
+  const [initialUser, setInitialUser] = useState('');
+
+  useEffect(() => {
+    setInitialUser(localStorage.getItem("loggedIn"));
+  }, []);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -21,14 +26,14 @@ export default function Header() {
             component="h2"
             sx={{ flexGrow: 1 }}
           >
-            <Link href='/'>Surveyor</Link>
+            <Link href="/">Surveyor</Link>
           </Typography>
           <div className="flex gap-4">
-            {user ? (
+            {user || initialUser ? (
               <ProfileMenu />
             ) : (
               <>
-                <Link href='/login'>
+                <Link href="/login">
                   <Button
                     variant="contained"
                     color="secondary"
@@ -37,7 +42,7 @@ export default function Header() {
                     Login
                   </Button>
                 </Link>
-                <Link href='/sign-up'>
+                <Link href="/sign-up">
                   <Button
                     variant="contained"
                     color="secondary"
