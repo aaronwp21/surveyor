@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { signOut } from 'firebase/auth';
 import { auth } from '@/firebase';
-import useStore, { setUser } from '@/store/store';
+import useStore, { selectUser, setUser } from '@/store/store';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
@@ -12,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 
 function ProfileMenu() {
+  const user = useStore(selectUser);
   const changeUser = useStore(setUser);
   let router = useRouter();
 
@@ -24,6 +26,11 @@ function ProfileMenu() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const handleProfileClick = () => {
+    setAnchorElUser(null);
+    router.push(`/user/${user.uid}`)
+  }
 
   const handleSignOut = () => {
     signOut(auth)
@@ -57,7 +64,7 @@ function ProfileMenu() {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        <MenuItem onClick={handleCloseUserMenu}>
+        <MenuItem onClick={handleProfileClick}>
           <Typography textAlign={'center'}>My Surveys</Typography>
         </MenuItem>
         <MenuItem onClick={handleSignOut}>
