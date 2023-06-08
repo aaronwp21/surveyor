@@ -34,6 +34,7 @@ function Create() {
 
   const surveySubmit = () => {
     addSurvey(user, questions);
+    setQuestions([]);
     setSnackBarOpen(true);
   };
 
