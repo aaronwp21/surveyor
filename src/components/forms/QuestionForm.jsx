@@ -68,7 +68,7 @@ function QuestionForm({ handleClose, submitHandler }) {
               />
             )}
           />
-          <FormControl component="fieldset">
+          <FormControl component="fieldset" sx={{width: '100%'}}>
             <FormLabel component="legend">Type of question</FormLabel>
             <Controller
               rules={{ required: true }}

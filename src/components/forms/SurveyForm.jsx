@@ -20,7 +20,7 @@ function SurveyForm({ submitHandler, questions }) {
 
   return (
     <>
-      <form onSubmit={handleSubmit(submitFn)} className="mb-4">
+      <form onSubmit={handleSubmit(submitFn)} className="mb-4 flex flex-col gap-8">
         {questions.map((question, i) => {
           if (question.type === 'text') {
             return (
