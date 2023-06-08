@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import useStore, { selectUser } from '@/store/store';
 import { addSurvey } from '@/firebase/controllers';
 import Typography from '@mui/material/Typography';
@@ -12,12 +13,19 @@ import TextField from '@mui/material/TextField';
 import SnackBar from '@/components/SnackBar';
 
 function Create() {
+  let router = useRouter();
   const user = useStore(selectUser);
   const [open, setOpen] = useState(false);
   const [snackBarOpen, setSnackBarOpen] = useState(false);
   const [titleVal, setTitleVal] = useState('');
   const [titleError, setTitleError] = useState(false);
   const [questions, setQuestions] = useState([]);
+
+  useEffect(() => {
+    if(!user) {
+      router.push('/sign-up')
+    } 
+  }, [user, router])
 
   const questionsSubmitHandler = (vals) => {
     setQuestions([...questions, vals]);
