@@ -39,6 +39,7 @@ function QuestionForm({ handleClose, submitHandler }) {
   });
 
   let submitFn = (vals) => {
+    handleClose();
     reset();
     submitHandler(vals);
   };
