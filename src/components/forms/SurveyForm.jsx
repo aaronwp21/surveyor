@@ -26,6 +26,7 @@ function SurveyForm({ submitHandler, questions }) {
             return (
               <TextInput
                 key={i}
+                iteration={i}
                 control={control}
                 errors={errors}
                 question={question.question}
@@ -35,6 +36,7 @@ function SurveyForm({ submitHandler, questions }) {
             return (
               <RadioInput
                 key={i}
+                iteration={i}
                 control={control}
                 question={question.question}
                 option1={question.option1}
