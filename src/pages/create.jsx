@@ -14,7 +14,7 @@ function Create() {
   };
 
   const questionsSubmitHandler = (vals) => {
-    console.log(vals);
+    setQuestions([...questions, vals])
   }
 
   const handleClickOpen = () => {

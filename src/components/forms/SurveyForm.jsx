@@ -21,20 +21,26 @@ function SurveyForm({ submitHandler, questions }) {
   return (
     <>
       <form onSubmit={handleSubmit(submitFn)} className="mb-4">
-        {questions.map((question) => {
+        {questions.map((question, i) => {
           if (question.type === 'text') {
-            <TextInput
-              control={control}
-              errors={errors}
-              name={question.question}
-            />;
+            return (
+              <TextInput
+                key={i}
+                control={control}
+                errors={errors}
+                question={question.question}
+              />
+            );
           } else {
-            <RadioInput
-              control={control}
-              question={question.question}
-              option1={question.option1}
-              option2={question.option2}
-            />;
+            return (
+              <RadioInput
+                key={i}
+                control={control}
+                question={question.question}
+                option1={question.option1}
+                option2={question.option2}
+              />
+            );
           }
         })}
         {questions.length === 0 ? (
