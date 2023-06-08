@@ -8,12 +8,15 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import QuestionForm from '@/components/forms/QuestionForm';
 import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 import SnackBar from '@/components/SnackBar';
 
 function Create() {
   const user = useStore(selectUser);
   const [open, setOpen] = useState(false);
   const [snackBarOpen, setSnackBarOpen] = useState(false);
+  const [titleVal, setTitleVal] = useState('');
+  const [titleError, setTitleError] = useState(false);
   const [questions, setQuestions] = useState([]);
 
   const questionsSubmitHandler = (vals) => {
@@ -32,10 +35,20 @@ function Create() {
     setSnackBarOpen(false);
   }
 
+  const handleTitleChange = (e) => {
+    setTitleVal(e.target.value)
+  }
+
   const surveySubmit = () => {
-    addSurvey(user, questions);
-    setQuestions([]);
-    setSnackBarOpen(true);
+    if (titleVal === '') {
+      setTitleError(true);
+    } else {
+      addSurvey(user, titleVal, questions);
+      setTitleVal('');
+      setTitleError(false);
+      setQuestions([]);
+      setSnackBarOpen(true);
+    }
   };
 
   const reset = () => {
@@ -47,10 +60,14 @@ function Create() {
       <Typography
         component="h2"
         variant="h3"
-        sx={{ textDecoration: 'underline', marginBlockEnd: '4rem' }}
+        sx={{ textDecoration: 'underline', marginBlockEnd: '2rem' }}
       >
         Create a Survey
       </Typography>
+      <div className='flex items-center gap-4 mb-8'>
+        <Typography component='p' variant='h5'>Survey Title: </Typography>
+        <TextField error={titleError} helperText={titleError ? 'Title cannot be empty' : ''} onChange={handleTitleChange} variant="standard" inputProps={{style: {fontSize: '1.5rem'}}} />
+      </div>
       <SurveyForm questions={questions} canAnswer={false} />
       <AddCircleIcon
         onClick={() => handleClickOpen()}
