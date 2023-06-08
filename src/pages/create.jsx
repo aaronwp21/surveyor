@@ -8,10 +8,12 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import QuestionForm from '@/components/forms/QuestionForm';
 import Button from '@mui/material/Button';
+import SnackBar from '@/components/SnackBar';
 
 function Create() {
   const user = useStore(selectUser);
   const [open, setOpen] = useState(false);
+  const [snackBarOpen, setSnackBarOpen] = useState(false);
   const [questions, setQuestions] = useState([]);
 
   const questionsSubmitHandler = (vals) => {
@@ -26,8 +28,13 @@ function Create() {
     setOpen(false);
   };
 
+  const handleSnackClose = () => {
+    setSnackBarOpen(false);
+  }
+
   const surveySubmit = () => {
     addSurvey(user, questions);
+    setSnackBarOpen(true);
   };
 
   const reset = () => {
@@ -77,6 +84,7 @@ function Create() {
           </Button>
         </div>
       )}
+      <SnackBar snackBarOpen={snackBarOpen} snackBarClose={handleSnackClose} />
     </div>
   );
 }
