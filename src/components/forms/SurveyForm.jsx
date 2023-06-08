@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import TextInput from '../TextInput';
 import RadioInput from '../RadioInput';
 
-function SurveyForm({ submitHandler, questions }) {
+function SurveyForm({ submitHandler, questions, canAnswer }) {
   const {
     handleSubmit,
     formState: { errors, isValid, isDirty, isSubmitting },
@@ -45,7 +45,7 @@ function SurveyForm({ submitHandler, questions }) {
             );
           }
         })}
-        {questions.length === 0 ? (
+        {questions.length === 0 || canAnswer === false ? (
           ''
         ) : (
           <div className="flex justify-center">
