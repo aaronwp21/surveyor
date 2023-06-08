@@ -1,14 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Button from '@mui/material/Button';
 import TextInput from '../TextInput';
 import RadioInput from '../RadioInput';
 
-function SurveyForm({submitHandler}) {
-  const [textQuestions, setTextQuestions] = useState([]);
-  const [booleanQuestions, setBooleanQuestions] = useState([]);
-
+function SurveyForm({ submitHandler, questions }) {
   const {
     handleSubmit,
     formState: { errors, isValid, isDirty, isSubmitting },
@@ -24,10 +20,27 @@ function SurveyForm({submitHandler}) {
 
   return (
     <>
-      <form onSubmit={handleSubmit(submitFn)} className='mb-4'>
-        <TextInput control={control} errors={errors} name="test" />
-        <RadioInput control={control} question='test question' option1='opt1' option2='opt2' />
-        <div className='flex justify-center'>
+      <form onSubmit={handleSubmit(submitFn)} className="mb-4">
+        {questions.map((question) => {
+          if (question.type === 'text') {
+            <TextInput
+              control={control}
+              errors={errors}
+              name={question.question}
+            />;
+          } else {
+            <RadioInput
+              control={control}
+              question={question.question}
+              option1={question.option1}
+              option2={question.option2}
+            />;
+          }
+        })}
+        {questions.length === 0 ? (
+          ''
+        ) : (
+          <div className="flex justify-center">
             <Button
               type="reset"
               onClick={() => reset()}
@@ -46,8 +59,8 @@ function SurveyForm({submitHandler}) {
               Submit
             </Button>
           </div>
+        )}
       </form>
-      <AddCircleIcon sx={{fontSize: '3rem', cursor: 'pointer'}} />
     </>
   );
 }
