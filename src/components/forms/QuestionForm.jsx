@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -24,6 +24,8 @@ const defaults = {
 };
 
 function QuestionForm({ handleClose, submitHandler }) {
+  const [currentVal, setCurrentVal] = useState('text');
+
   const {
     handleSubmit,
     formState: { errors, isValid, isDirty, isSubmitting },
@@ -39,6 +41,10 @@ function QuestionForm({ handleClose, submitHandler }) {
   let submitFn = (vals) => {
     reset();
     submitHandler(vals);
+  };
+
+  const handleChange = (event) => {
+    setCurrentVal(event.target.value);
   };
 
   return (
@@ -71,18 +77,60 @@ function QuestionForm({ handleClose, submitHandler }) {
               render={({ field }) => (
                 <RadioGroup {...field}>
                   <FormControlLabel
+                    onChange={handleChange}
                     value={'text'}
                     control={<Radio />}
                     label={'Text'}
                   />
                   <FormControlLabel
-                    value={'yesNo'}
+                    onChange={handleChange}
+                    value={'choice'}
                     control={<Radio />}
-                    label={'Yes/No'}
+                    label={'Multiple Choice'}
                   />
                 </RadioGroup>
               )}
             />
+            {currentVal === 'text' ? (
+              ''
+            ) : (
+              <>
+                <Controller
+                  control={control}
+                  name="option1"
+                  defaultValue={''}
+                  render={({ field }) => (
+                    <TextField
+                      type="text"
+                      variant="filled"
+                      {...field}
+                      label="Option 1"
+                      fullWidth
+                      error={!!errors.option1}
+                      helperText={errors.option1?.message}
+                      sx={{ marginBlockEnd: '2rem' }}
+                    />
+                  )}
+                />
+                <Controller
+                  control={control}
+                  name="option2"
+                  defaultValue={''}
+                  render={({ field }) => (
+                    <TextField
+                      type="text"
+                      variant="filled"
+                      {...field}
+                      label="Option 2"
+                      fullWidth
+                      error={!!errors.option2}
+                      helperText={errors.option2?.message}
+                      sx={{ marginBlockEnd: '2rem' }}
+                    />
+                  )}
+                />
+              </>
+            )}
           </FormControl>
         </DialogContent>
         <DialogActions>
