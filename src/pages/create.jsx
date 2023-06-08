@@ -22,10 +22,10 @@ function Create() {
   const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
-    if(!user) {
-      router.push('/sign-up')
-    } 
-  }, [user, router])
+    if (!user) {
+      router.push('/sign-up');
+    }
+  }, [user, router]);
 
   const questionsSubmitHandler = (vals) => {
     setQuestions([...questions, vals]);
@@ -41,11 +41,11 @@ function Create() {
 
   const handleSnackClose = () => {
     setSnackBarOpen(false);
-  }
+  };
 
   const handleTitleChange = (e) => {
-    setTitleVal(e.target.value)
-  }
+    setTitleVal(e.target.value);
+  };
 
   const surveySubmit = () => {
     if (titleVal === '') {
@@ -60,6 +60,7 @@ function Create() {
   };
 
   const reset = () => {
+    setTitleVal('');
     setQuestions([]);
   };
 
@@ -72,9 +73,18 @@ function Create() {
       >
         Create a Survey
       </Typography>
-      <div className='flex items-center gap-4 mb-8'>
-        <Typography component='p' variant='h5'>Survey Title: </Typography>
-        <TextField error={titleError} helperText={titleError ? 'Title cannot be empty' : ''} onChange={handleTitleChange} variant="standard" inputProps={{style: {fontSize: '1.5rem'}}} />
+      <div className="flex items-center gap-4 mb-8">
+        <Typography component="p" variant="h5">
+          Survey Title:{' '}
+        </Typography>
+        <TextField
+          value={titleVal}
+          error={titleError}
+          helperText={titleError ? 'Title cannot be empty' : ''}
+          onChange={handleTitleChange}
+          variant="standard"
+          inputProps={{ style: { fontSize: '1.5rem' } }}
+        />
       </div>
       <SurveyForm questions={questions} canAnswer={false} />
       <AddCircleIcon
