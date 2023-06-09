@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import useStore, { selectUser } from '@/store/store';
+import { addSurvey } from '@/lib/api-functions/server/api';
 // import { addSurvey } from '@/firebase/controllers';
 import Typography from '@mui/material/Typography';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
@@ -51,6 +52,10 @@ function Create() {
     if (titleVal === '') {
       setTitleError(true);
     } else {
+      const uid = user.uid;
+      const survey = [titleVal, questions];
+      const data = { owner: uid, surveys: survey };
+      addSurvey(data);
       // addSurvey(user, titleVal, questions);
       setTitleVal('');
       setTitleError(false);

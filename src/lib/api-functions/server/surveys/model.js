@@ -8,14 +8,9 @@ export const surveySchema = new Schema({
     unique: true,
   },
   surveys: {
-    title: {
-      type: String,
-      required: true,
-    },
-    questions: {
-      type: Array,
-      required: true,
-    },
+    type: Array,
+    required: true,
+    unique: true
   },
 });
 

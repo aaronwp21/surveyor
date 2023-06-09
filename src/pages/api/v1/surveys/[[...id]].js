@@ -24,11 +24,9 @@ const handler = nc({
       return next();
     }
     try {
-      const session = await getSession(req, res);
-      req.user = session.user;
       next();
     } catch (err) {
-      return handleUnauthorisedAPICall(res);
+      console.log(err);
     }
   })
   .get(baseRoute, async (req, res) => {

@@ -2,15 +2,15 @@ import * as yup from 'yup';
 
 const addSurveySchema = yup
   .object({
-    title: yup.string().required(),
-    questions: yup.array().required(),
+    owner: yup.string().required(),
+    surveys: yup.array().required(),
   })
   .required();
 
 const updateSurveySchema = yup
   .object({
-    title: yup.string().optional(),
-    questions: yup.array().optional(),
+    owner: yup.string().optional(),
+    surveys: yup.array().optional(),
   })
   .required();
 
