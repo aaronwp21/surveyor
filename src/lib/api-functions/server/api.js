@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const {
-  host
+  host='http://localhost:3000'
 } = process.env;
 
 console.log(host)
