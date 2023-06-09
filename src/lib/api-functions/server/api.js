@@ -1,15 +1,15 @@
 import axios from 'axios';
 
-const { VERCEL_BRANCH_URL='http://localhost:3000' } = process.env;
+const { VERCEL_BRANCH_URL = 'http://localhost:3000' } = process.env;
 
-let SURVEYS_ENDPOINT = `${host}/api/v1/surveys/`;
+let SURVEYS_ENDPOINT;
 
 console.log(process.env.NODE_ENV);
 
 if (process.env.NODE_ENV === 'development') {
-  SURVEYS_ENDPOINT = `${VERCEL_BRANCH_URL}/api/v1/surveys/`
+  SURVEYS_ENDPOINT = `${VERCEL_BRANCH_URL}/api/v1/surveys/`;
 } else {
-  SURVEYS_ENDPOINT = `https://${VERCEL_BRANCH_URL}/api/v1/surveys/`
+  SURVEYS_ENDPOINT = `https://${VERCEL_BRANCH_URL}/api/v1/surveys/`;
 }
 
 export { SURVEYS_ENDPOINT };
