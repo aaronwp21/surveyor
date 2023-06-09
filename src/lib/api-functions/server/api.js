@@ -4,6 +4,8 @@ const {
   host='http://localhost:3000'
 } = process.env;
 
+console.log(host)
+
 export const SURVEYS_ENDPOINT = `${host}/api/v1/surveys/`;
 
 export const addSurvey = async (data) => {
