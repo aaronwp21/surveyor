@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import useStore, { selectUser } from '@/store/store';
-import { addSurvey } from '@/firebase/controllers';
+// import { addSurvey } from '@/firebase/controllers';
 import Typography from '@mui/material/Typography';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import SurveyForm from '@/components/forms/SurveyForm';
@@ -51,7 +51,7 @@ function Create() {
     if (titleVal === '') {
       setTitleError(true);
     } else {
-      addSurvey(user, titleVal, questions);
+      // addSurvey(user, titleVal, questions);
       setTitleVal('');
       setTitleError(false);
       setQuestions([]);
