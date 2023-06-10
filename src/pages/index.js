@@ -3,6 +3,8 @@ import useStore, { selectUser } from '@/store/store';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
+console.log(process.env)
+
 export default function Home() {
   let router = useRouter();
   const user = useStore(selectUser);
