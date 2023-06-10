@@ -1,14 +1,23 @@
+import React, { useEffect } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/firebase';
-import useStore, { setUser } from '@/store/store';
+import useStore, { selectUser, setUser } from '@/store/store';
 import Typography from '@mui/material/Typography';
 import AuthForm from '@/components/forms/AuthForm';
 
 export default function SignUp() {
+  const user = useStore(selectUser);
   const changeUser = useStore(setUser);
   let router = useRouter();
+
+  useEffect(() => {
+    if(user) {
+      router.push('/create')
+    }
+  }, [router, user])
+
   const submitHandler = ({ email, password }) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
