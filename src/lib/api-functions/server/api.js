@@ -1,10 +1,16 @@
 import axios from "axios";
 
-const {
-  API_KEY='http://localhost:3000'
-} = process.env;
+let host;
 
-export const SURVEYS_ENDPOINT = `${API_KEY}/api/v1/surveys/`;
+if (process.env.NODE_ENV === 'development') {
+  host = 'http://localhost:3000'
+} else {
+  host = 'https://surveyor-git-staging-aaronwp21.vercel.app/'
+}
+
+export const SURVEYS_ENDPOINT = `${host}/api/v1/surveys/`
+
+console.log(SURVEYS_ENDPOINT)
 
 export const addSurvey = async (data) => {
   const response = await axios({
