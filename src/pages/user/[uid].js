@@ -23,7 +23,7 @@ export default function Page({ data }) {
         My Surveys
       </Typography>
       <div className="w-[80%] m-auto grid grid-cols-3 gap-4 justify-center">
-        {data.length === '0' ? (
+        {data.length === 0 ? (
           <div className="flex flex-col gap-4">
             <Typography component="p" variant="h4">
               You have no surveys.
