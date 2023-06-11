@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { getUserSurveys } from '@/lib/api-functions/server/api';
 import Typography from '@mui/material/Typography';
+import SurveyCard from '@/components/SurveyCard';
 
 export default function Page({ data }) {
   const router = useRouter();
@@ -15,6 +16,11 @@ export default function Page({ data }) {
       >
         My Surveys
       </Typography>
+      <div className='w-[80%] m-auto grid grid-cols-3 gap-4 justify-center'>
+        {data.map((survey, i) => {
+          return <SurveyCard title={survey.surveys[0]} key={i} />
+        })}
+      </div>
     </>
   );
 }
