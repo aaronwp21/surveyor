@@ -9,6 +9,12 @@ export const fetchSurvey = async (id) => {
   return await Survey.findById(id).exec();
 };
 
+export const fetchUserSurveys = async (id) => {
+  const results = await Survey.find({ owner: id }).exec();
+
+  return results;
+}
+
 export const add = async (data) => {
   const newSurvey = new Survey(data);
   const result = await newSurvey.save();

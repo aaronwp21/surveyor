@@ -9,11 +9,11 @@ export default function Home() {
 
   const handleCreateSurveyClick = () => {
     if (user) {
-      router.push('/create')
+      router.push('/create');
     } else {
-      router.push('/sign-up')
+      router.push('/sign-up');
     }
-  }
+  };
 
   return (
     <div className="h-full w-full flex justify-center items-center">

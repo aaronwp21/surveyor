@@ -10,6 +10,14 @@ if (process.env.NODE_ENV === 'development') {
 
 export const SURVEYS_ENDPOINT = `${host}/api/v1/surveys/`
 
+export const getUserSurveys = async (id) => {
+  const response = await axios({
+    method: "GET",
+    url: `${SURVEYS_ENDPOINT}${id}`
+  })
+  return response.data;
+}
+
 export const addSurvey = async (data) => {
   const response = await axios({
     method: "POST",

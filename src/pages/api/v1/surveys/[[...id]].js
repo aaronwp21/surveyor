@@ -4,8 +4,9 @@ import {
   updateSurvey,
   removeSurvey,
   getSurveys,
-  addSurvey
-} from '@/lib/api-functions/server/surveys/controllers'
+  getUserSurveys,
+  addSurvey,
+} from '@/lib/api-functions/server/surveys/controllers';
 
 const baseRoute = '/api/v1/surveys/:id?';
 
@@ -30,7 +31,12 @@ const handler = nc({
     }
   })
   .get(baseRoute, async (req, res) => {
-    getSurveys(req, res);
+    const { id } = req.params;
+    if (id) {
+      return getUserSurveys(req, res);
+    } else {
+      getSurveys(req, res);
+    }
   })
   .post(baseRoute, async (req, res) => {
     addSurvey(req, res);

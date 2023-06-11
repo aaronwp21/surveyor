@@ -2,6 +2,7 @@ import { addSurveySchema, updateSurveySchema } from '@/lib/validation/';
 import {
   fetchSurvey,
   fetchSurveys,
+  fetchUserSurveys,
   add,
   update,
   remove,
@@ -23,6 +24,18 @@ const getSurveys = async (req, res) => {
     res.status(500).send(err);
   }
 };
+
+const getUserSurveys = async (req, res) => {
+  const {id} = req.params;
+
+  try {
+    let data = await fetchUserSurveys(id);
+    return res.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err);
+  }
+}
 
 const addSurvey = async (req, res) => {
   let surveyData = { ...req.body };
@@ -92,4 +105,4 @@ const removeSurvey = async (req, res) => {
   }
 };
 
-export { getSurveys, addSurvey, updateSurvey, removeSurvey };
+export { getSurveys, getUserSurveys, addSurvey, updateSurvey, removeSurvey };
