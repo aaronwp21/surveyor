@@ -9,12 +9,12 @@ import {
 } from '@/lib/api-functions/server/surveys/queries';
 
 const getSurveys = async (req, res) => {
-  const { id } = req.params;
+  const { _id } = req.params;
 
   try {
     let data = [];
-    if (id) {
-      data = await fetchSurvey(id);
+    if (_id) {
+      data = await fetchSurvey(_id);
     } else {
       data = await fetchSurveys();
     }
