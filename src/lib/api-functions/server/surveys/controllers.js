@@ -5,6 +5,7 @@ import {
   fetchUserSurveys,
   add,
   update,
+  updateAnswersArray,
   remove,
 } from '@/lib/api-functions/server/surveys/queries';
 
@@ -84,6 +85,25 @@ const updateSurvey = async (req, res) => {
   }
 };
 
+const updateAnswers = async (req, res) => {
+  const { _id } = req.params;
+
+  if (!_id) {
+    return res.status(400).json({ message: 'No id provided to update' });
+  }
+
+  let updates = { ...req.body };
+
+  try {
+    const result = await updateAnswersArray(_id, updates);
+    if (result.n === 0) return res.status(404).send({ message: 'Not Found' });
+    return res.status(200).send({ message: 'Updated' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err);
+  }
+};
+
 const removeSurvey = async (req, res) => {
   const { id } = req.params;
 
@@ -105,4 +125,4 @@ const removeSurvey = async (req, res) => {
   }
 };
 
-export { getSurveys, getUserSurveys, addSurvey, updateSurvey, removeSurvey };
+export { getSurveys, getUserSurveys, addSurvey, updateSurvey, updateAnswers, removeSurvey };

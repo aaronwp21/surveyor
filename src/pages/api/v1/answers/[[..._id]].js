@@ -1,11 +1,8 @@
 import nc from 'next-connect-v0';
 
 import {
-  updateSurvey,
-  removeSurvey,
+  updateAnswers,
   getSurveys,
-  getUserSurveys,
-  addSurvey,
 } from '@/lib/api-functions/server/surveys/controllers';
 
 const baseRoute = '/api/v1/answers/:_id?';
@@ -33,14 +30,8 @@ const handler = nc({
   .get(baseRoute, async (req, res) => {
     getSurveys(req, res);
   })
-  .post(baseRoute, async (req, res) => {
-    addSurvey(req, res);
-  })
   .put(baseRoute, async (req, res) => {
-    updateSurvey(req, res);
+    updateAnswers(req, res);
   })
-  .delete(baseRoute, async (req, res) => {
-    removeSurvey(req, res);
-  });
 
 export default handler;

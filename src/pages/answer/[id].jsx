@@ -1,7 +1,8 @@
 import React from 'react';
+import axios from 'axios';
 import Typography from '@mui/material/Typography';
 import SurveyForm from '@/components/forms/SurveyForm';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 function Page() {
   const origin = window.location.origin;
@@ -16,8 +17,14 @@ function Page() {
       }),
   });
 
+  const mutation = useMutation({
+    mutationFn: (answers) => {
+      return axios.put(path, answers)
+    }
+  })
+
   const submitHandler = (vals) => {
-    console.log(vals);
+    mutation.mutate(vals);
   };
 
   if (isLoading) {
@@ -28,7 +35,6 @@ function Page() {
     return <div>Error</div>;
   }
 
-  console.log(data);
   return (
     <div className="flex flex-col items-center mt-8">
       <SurveyForm

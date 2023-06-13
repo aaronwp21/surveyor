@@ -1,5 +1,5 @@
-import db from "@/lib/api-functions/server/db";
-import Survey from "@/lib/api-functions/server/surveys/model";
+import db from '@/lib/api-functions/server/db';
+import Survey from '@/lib/api-functions/server/surveys/model';
 
 export const fetchSurveys = async (query = {}) => {
   return await Survey.find(query).exec();
@@ -13,7 +13,7 @@ export const fetchUserSurveys = async (id) => {
   const results = await Survey.find({ owner: id }).exec();
 
   return results;
-}
+};
 
 export const add = async (data) => {
   const newSurvey = new Survey(data);
@@ -23,6 +23,10 @@ export const add = async (data) => {
 
 export const update = async (id, updates) => {
   return await Survey.updateOne({ _id: id }, updates);
+};
+
+export const updateAnswersArray = async (id, updates) => {
+  return await Survey.updateOne({ _id: id }, { $push: { answers: updates } });
 };
 
 export const remove = async (id) => {
