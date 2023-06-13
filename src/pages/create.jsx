@@ -38,6 +38,7 @@ function Create() {
 
   const questionsSubmitHandler = (vals) => {
     setQuestions([...questions, vals]);
+    router.replace('/')
   };
 
   const handleClickOpen = () => {
@@ -132,7 +133,7 @@ function Create() {
           </Button>
         </div>
       )}
-      <SnackBar snackBarOpen={snackBarOpen} snackBarClose={handleSnackClose} />
+      <SnackBar snackBarOpen={snackBarOpen} snackBarClose={handleSnackClose} action='saved' />
     </div>
   );
 }

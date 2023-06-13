@@ -7,6 +7,7 @@ import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { TextField, Button, Box } from '@mui/material';
+import { useRouter } from 'next/router';
 
 const schema = yup.object().shape({
   email: yup.string().email().trim().required(),

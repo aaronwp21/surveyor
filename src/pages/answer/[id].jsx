@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
 import Typography from '@mui/material/Typography';
 import SurveyForm from '@/components/forms/SurveyForm';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import SnackBar from '@/components/SnackBar';
 
 function Page() {
+  const [snackBarOpen, setSnackBarOpen] = useState(false);
+
   const origin = window.location.origin;
   const id = window.location.href.match(/(?<=answer.)[^\]]+/)[0];
   const path = `${origin}/api/v1/answers/${id}`;
@@ -19,12 +23,17 @@ function Page() {
 
   const mutation = useMutation({
     mutationFn: (answers) => {
-      return axios.put(path, answers)
-    }
-  })
+      return axios.put(path, answers);
+    },
+  });
 
   const submitHandler = (vals) => {
     mutation.mutate(vals);
+    setSnackBarOpen(true);
+  };
+
+  const handleSnackClose = () => {
+    setSnackBarOpen(false);
   };
 
   if (isLoading) {
@@ -42,6 +51,7 @@ function Page() {
         questions={data.surveys[1]}
         canAnswer={true}
       />
+      <SnackBar snackBarOpen={snackBarOpen} snackBarClose={handleSnackClose} action='updated' />
     </div>
   );
 }
