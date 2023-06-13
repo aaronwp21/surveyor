@@ -38,7 +38,6 @@ function Create() {
 
   const questionsSubmitHandler = (vals) => {
     setQuestions([...questions, vals]);
-    router.replace('/')
   };
 
   const handleClickOpen = () => {
