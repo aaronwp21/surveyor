@@ -5,7 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-export default function SurveyCard({ title }) {
+export default function SurveyCard({ title, btn1, btn2 }) {
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardContent>
@@ -14,8 +14,8 @@ export default function SurveyCard({ title }) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button color='secondary' variant='contained' size="small">Remove</Button>
-        <Button color='primary' variant='contained' size="small">View</Button>
+        <Button color='secondary' variant='contained' size="small">{btn1}</Button>
+        <Button color='primary' variant='contained' size="small">{btn2}</Button>
       </CardActions>
     </Card>
   );

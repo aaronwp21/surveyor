@@ -36,6 +36,7 @@ export default function Home() {
             color="secondary"
             size="large"
             sx={{ borderRadius: '12px' }}
+            onClick={() => router.push('/surveys')}
           >
             Answer a Survey
           </Button>
