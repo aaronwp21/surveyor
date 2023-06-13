@@ -43,6 +43,8 @@ function AnswerSurveyCardList() {
               title={survey.surveys[0]}
               btn1="Preview"
               btn2="Answer"
+              type='answer'
+              id={survey._id}
               key={i}
             />
           );

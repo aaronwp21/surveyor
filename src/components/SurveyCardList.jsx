@@ -41,7 +41,7 @@ function SurveyCardList() {
       </div>
     ) : (
       data.map((survey, i) => {
-        return <SurveyCard title={survey.surveys[0]} btn1='Remove' btn2='View' key={i} />;
+        return <SurveyCard title={survey.surveys[0]} btn1='Remove' btn2='View' type='view' key={i} />;
       })
     )}
   </div>
