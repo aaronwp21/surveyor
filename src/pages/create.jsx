@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useRouter } from 'next/router';
 import useStore, { selectUser } from '@/store/store';
-import { addSurvey } from '@/lib/api-functions/server/api';
-// import { addSurvey } from '@/firebase/controllers';
+import { useMutation } from '@tanstack/react-query';
 import Typography from '@mui/material/Typography';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import SurveyForm from '@/components/forms/SurveyForm';
@@ -21,6 +21,14 @@ function Create() {
   const [titleVal, setTitleVal] = useState('');
   const [titleError, setTitleError] = useState(false);
   const [questions, setQuestions] = useState([]);
+
+  const origin = window.location.origin;
+  const path = `${origin}/api/v1/surveys`;
+  const mutation = useMutation({
+    mutationFn: (data) => {
+      return axios.post(path, data)
+    }
+  })
 
   useEffect(() => {
     if (!user) {
@@ -55,8 +63,7 @@ function Create() {
       const uid = user.uid;
       const survey = [titleVal, questions];
       const data = { owner: uid, surveys: survey };
-      addSurvey(data);
-      // addSurvey(user, titleVal, questions);
+      mutation.mutate(data);
       setTitleVal('');
       setTitleError(false);
       setQuestions([]);

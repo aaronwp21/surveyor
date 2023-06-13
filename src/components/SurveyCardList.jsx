@@ -9,7 +9,6 @@ function SurveyCardList() {
   const origin = window.location.origin;
   const uid = window.location.href.match(/(?<=user.)[^\]]+/)[0];
   const path = `${origin}/api/v1/surveys/${uid}`;
-  console.log(path);
   const { isLoading, error, data } = useQuery({
     queryKey: ['surveys'],
     queryFn: () =>
