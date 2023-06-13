@@ -26,9 +26,9 @@ function Create() {
   const path = `${origin}/api/v1/surveys`;
   const mutation = useMutation({
     mutationFn: (data) => {
-      return axios.post(path, data)
-    }
-  })
+      return axios.post(path, data);
+    },
+  });
 
   useEffect(() => {
     if (!user) {
@@ -62,7 +62,7 @@ function Create() {
     } else {
       const uid = user.uid;
       const survey = [titleVal, questions];
-      const data = { owner: uid, surveys: survey };
+      const data = { owner: uid, surveys: survey, answers: [] };
       mutation.mutate(data);
       setTitleVal('');
       setTitleError(false);

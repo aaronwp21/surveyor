@@ -10,6 +10,10 @@ export const surveySchema = new Schema({
     type: Array,
     required: true,
   },
+  answers: {
+    type: Array,
+    required: true,
+  }
 });
 
 const Survey =
