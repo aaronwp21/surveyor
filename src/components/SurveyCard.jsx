@@ -6,13 +6,17 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-export default function SurveyCard({ title, btn1, btn2, id, type }) {
+export default function SurveyCard({ title, btn1, btn2, _id, type }) {
   const router = useRouter();
   let btn2Click = () => {}
 
   if(type === 'answer') {
     btn2Click = () => {
-      router.push(`/answer/${id}`)
+      router.push(`/answer/${_id}`)
+    }
+  } else {
+    btn2Click = () => {
+      router.push(`/user/answers/${_id}`)
     }
   }
 

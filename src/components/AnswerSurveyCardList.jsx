@@ -44,7 +44,7 @@ function AnswerSurveyCardList() {
               btn1="Preview"
               btn2="Answer"
               type='answer'
-              id={survey._id}
+              _id={survey._id}
               key={i}
             />
           );
