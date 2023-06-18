@@ -1,15 +1,11 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import Box from '@mui/material/Box';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import PieChart from '@/components/PieChart';
 
 function Page() {
   const origin = window.location.origin;
@@ -33,9 +29,10 @@ function Page() {
   }
 
   const questions = data.surveys[1];
+  const answers = data.answers;
 
   return (
-    <div className='w-[80%] m-auto mt-8'>
+    <div className="w-[80%] m-auto mt-8">
       {questions.map((question, i) => {
         return (
           <Accordion key={i}>
@@ -47,32 +44,17 @@ function Page() {
               <Typography>{question.question}</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                eget.
-              </Typography>
+              <div className='flex flex-col gap-4'>
+                {answers.map((answer, idx) => {
+                  return <p key={i} className='border-b-2 border-black'>{`${idx + 1}. ${answer[`question${i}`]}`}</p>;
+                })}
+              </div>
             </AccordionDetails>
           </Accordion>
         );
       })}
     </div>
   );
-  // <nav aria-label="main mailbox folders">
-  //     <Box sx={{width: '80%', margin: 'auto', marginBlockStart: '2rem'}}>
-  //       <List>
-  //         {questions.map((question, i) => {
-  //           return (
-  //             <ListItem disablePadding key={i}>
-  //               <ListItemButton>
-  //                 <ListItemText primary={question.question} />
-  //               </ListItemButton>
-  //             </ListItem>
-  //           )
-  //         })}
-  //       </List>
-  //     </Box>
-  //   </nav>
 }
 
 export default Page;
