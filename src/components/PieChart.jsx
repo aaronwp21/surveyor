@@ -35,5 +35,5 @@ export default function PieChart({labels}) {
       },
     ],
   };
-  return <div className='flex justify-center max-h-[200px] mt-8'><Pie data={data} /></div>;
+  return <div className='max-h-[300px] flex justify-center'><Pie data={data} /></div>;
 }

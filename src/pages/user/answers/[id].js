@@ -44,14 +44,16 @@ function Page() {
               <Typography>{question.question}</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <div className='flex flex-col gap-4'>
-                {answers.map((answer, idx) => {
-                  return <p key={i} className='border-b-2 border-black'>{`${idx + 1}. ${answer[`question${i}`]}`}</p>;
-                })}
+              <div className='grid grid-cols-2'>
+                <div className='flex flex-col gap-4'>
+                  {answers.map((answer, idx) => {
+                    return <p key={i} className='border-b-2 border-black'>{`${idx + 1}. ${answer[`question${i}`]}`}</p>;
+                  })}
+                </div>
+                {question.type === 'choice' ? <PieChart labels={answers.map((element) => {
+                  return element[`question${i}`];
+                })} /> : ''}
               </div>
-              {question.type === 'choice' ? <PieChart labels={answers.map((element) => {
-                return element[`question${i}`];
-              })} /> : ''}
             </AccordionDetails>
           </Accordion>
         );
