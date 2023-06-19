@@ -4,13 +4,17 @@ import { Pie } from 'react-chartjs-2';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export default function PieChart({labels, answers}) {
+export default function PieChart({labels}) {
+  const question0Counts = labels.reduce((acc, val) => {
+    acc[val] = (acc[val] || 0) + 1;
+    return acc;
+  }, {});
   const data = {
-    labels: labels,
+    labels: Object.keys(question0Counts),
     datasets: [
       {
         label: '# of Answers',
-        data: answers,
+        data: Object.values(question0Counts),
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
@@ -31,5 +35,5 @@ export default function PieChart({labels, answers}) {
       },
     ],
   };
-  return <Pie data={data} />;
+  return <div className='flex justify-center max-h-[200px] mt-8'><Pie data={data} /></div>;
 }

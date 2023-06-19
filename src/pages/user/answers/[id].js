@@ -49,6 +49,9 @@ function Page() {
                   return <p key={i} className='border-b-2 border-black'>{`${idx + 1}. ${answer[`question${i}`]}`}</p>;
                 })}
               </div>
+              {question.type === 'choice' ? <PieChart labels={answers.map((element) => {
+                return element[`question${i}`];
+              })} /> : ''}
             </AccordionDetails>
           </Accordion>
         );
