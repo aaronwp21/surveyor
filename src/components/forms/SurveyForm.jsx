@@ -36,12 +36,12 @@ function SurveyForm({ submitHandler, deleteHandler, questions, canAnswer }) {
                   errors={errors}
                   question={question.question}
                 />
-                <div
+                {canAnswer ? '' : <div
                   onClick={() => deleteHandler(i)}
                   className="absolute top-[50%] left-[105%] translate-y-[-50%] cursor-pointer"
                 >
                   <DeleteIcon />
-                </div>
+                </div>}
               </div>
             );
           } else {
@@ -55,12 +55,12 @@ function SurveyForm({ submitHandler, deleteHandler, questions, canAnswer }) {
                   option1={question.option1}
                   option2={question.option2}
                 />
-                <div
+                {canAnswer ? '' : <div
                   onClick={() => deleteHandler(i)}
                   className="absolute top-[50%] left-[105%] translate-y-[-50%] cursor-pointer"
                 >
                   <DeleteIcon />
-                </div>
+                </div>}
               </div>
             );
           }
