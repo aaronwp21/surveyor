@@ -30,6 +30,7 @@ function SurveyForm({ submitHandler, deleteHandler, questions, canAnswer }) {
             return (
               <div key={i} className="relative">
                 <TextInput
+                  disabled={!canAnswer}
                   iteration={i}
                   control={control}
                   errors={errors}
@@ -47,6 +48,7 @@ function SurveyForm({ submitHandler, deleteHandler, questions, canAnswer }) {
             return (
               <div key={i} className='relative'>
                 <RadioInput
+                  disabled={!canAnswer}
                   iteration={i}
                   control={control}
                   question={question.question}

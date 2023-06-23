@@ -7,7 +7,7 @@ import Radio from '@mui/material/Radio';
 import TextField from '@mui/material/TextField';
 import { Controller } from 'react-hook-form';
 
-function RadioInput({ control, question, option1, option2, iteration }) {
+function RadioInput({ control, question, option1, option2, iteration, disabled }) {
   return (
     <FormControl component="fieldset">
       <FormLabel component="legend">{question}</FormLabel>
@@ -18,11 +18,13 @@ function RadioInput({ control, question, option1, option2, iteration }) {
         render={({ field }) => (
           <RadioGroup {...field}>
             <FormControlLabel
+              disabled={disabled}
               value={option1}
               control={<Radio />}
               label={option1}
             />
             <FormControlLabel
+              disabled={disabled}
               value={option2}
               control={<Radio />}
               label={option2}

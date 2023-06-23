@@ -2,7 +2,7 @@ import React from 'react';
 import { Controller } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
 
-function TextInput({ control, errors, question, iteration }) {
+function TextInput({ control, errors, question, iteration, disabled }) {
   return (
     <>
       <Controller
@@ -12,6 +12,7 @@ function TextInput({ control, errors, question, iteration }) {
         defaultValue={''}
         render={({ field }) => (
           <TextField
+            disabled={disabled}
             type="text"
             variant="filled"
             {...field}
