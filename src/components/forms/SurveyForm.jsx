@@ -3,8 +3,9 @@ import { useForm, Controller } from 'react-hook-form';
 import Button from '@mui/material/Button';
 import TextInput from '../TextInput';
 import RadioInput from '../RadioInput';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-function SurveyForm({ submitHandler, questions, canAnswer }) {
+function SurveyForm({ submitHandler, deleteHandler, questions, canAnswer }) {
   const {
     handleSubmit,
     formState: { errors, isValid, isDirty, isSubmitting },
@@ -20,17 +21,22 @@ function SurveyForm({ submitHandler, questions, canAnswer }) {
 
   return (
     <>
-      <form onSubmit={handleSubmit(submitFn)} className="mb-4 flex flex-col gap-8">
+      <form
+        onSubmit={handleSubmit(submitFn)}
+        className="mb-4 flex flex-col gap-8"
+      >
         {questions.map((question, i) => {
           if (question.type === 'text') {
             return (
-              <TextInput
-                key={i}
-                iteration={i}
-                control={control}
-                errors={errors}
-                question={question.question}
-              />
+              <div key={i} className='relative'>
+                <TextInput
+                  iteration={i}
+                  control={control}
+                  errors={errors}
+                  question={question.question}
+                />
+                <div className='absolute top-[50%] left-[105%] translate-y-[-50%] cursor-pointer'><DeleteIcon /></div>
+              </div>
             );
           } else {
             return (

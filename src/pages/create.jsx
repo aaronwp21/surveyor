@@ -40,6 +40,10 @@ function Create() {
     setQuestions([...questions, vals]);
   };
 
+  const deleteHandler = () => {
+    
+  }
+
   const handleClickOpen = () => {
     setOpen(true);
   };
