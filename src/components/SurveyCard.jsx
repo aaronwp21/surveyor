@@ -13,7 +13,7 @@ export default function SurveyCard({ title, btn1 = '', btn2, _id, type }) {
   let btn2Click = () => {};
 
   const btn1Click = () => {
-    router.push(`/user/edit/${_id}`);
+    router.push(`/user/${user.uid}/edit/${_id}`);
   };
 
   if (type === 'answer') {
@@ -22,7 +22,7 @@ export default function SurveyCard({ title, btn1 = '', btn2, _id, type }) {
     };
   } else {
     btn2Click = () => {
-      router.push(`/user/answers/${_id}`);
+      router.push(`/user/${user.uid}/answers/${_id}`);
     };
   }
 
