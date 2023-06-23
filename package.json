@@ -15,6 +15,7 @@
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.13.4",
     "@tanstack/react-query": "^4.29.12",
+    "array-move": "^4.0.0",
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
     "cross-env": "^7.0.3",

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { arrayMoveImmutable } from 'array-move';
 import { useRouter } from 'next/router';
 import Typography from '@mui/material/Typography';
 import SurveyForm from '@/components/forms/SurveyForm';
@@ -39,6 +40,18 @@ function Page() {
     setSnackBarOpen(true);
   };
 
+  const upArrowHandler = (index) => {
+    const newIndex = index - 1
+    const newArr = arrayMoveImmutable(questions, index, newIndex);
+    setQuestions(newArr);
+  };
+
+  const downArrowHandler = (index) => {
+    const newIndex = index + 1
+    const newArr = arrayMoveImmutable(questions, index, newIndex);
+    setQuestions(newArr);
+  };
+
   const deleteHandler = (index) => {
     const newArr = questions.filter((question, i) => {
       if(i !== index) {
@@ -64,6 +77,8 @@ function Page() {
     <div className="flex flex-col items-center mt-8">
       <SurveyForm
         submitHandler={submitHandler}
+        upArrowHandler={upArrowHandler}
+        downArrowHandler={downArrowHandler}
         deleteHandler={deleteHandler}
         questions={questions}
         canAnswer={false}

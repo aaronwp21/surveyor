@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import useStore, { selectUser } from '@/store/store';
 import { useMutation } from '@tanstack/react-query';
+import { arrayMoveImmutable } from 'array-move';
 import Typography from '@mui/material/Typography';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import SurveyForm from '@/components/forms/SurveyForm';
@@ -40,14 +41,26 @@ function Create() {
     setQuestions([...questions, vals]);
   };
 
+  const upArrowHandler = (index) => {
+    const newIndex = index - 1
+    const newArr = arrayMoveImmutable(questions, index, newIndex);
+    setQuestions(newArr);
+  };
+
+  const downArrowHandler = (index) => {
+    const newIndex = index + 1
+    const newArr = arrayMoveImmutable(questions, index, newIndex);
+    setQuestions(newArr);
+  };
+
   const deleteHandler = (index) => {
     const newArr = questions.filter((question, i) => {
-      if(i !== index) {
+      if (i !== index) {
         return question;
       }
-    })
+    });
     setQuestions(newArr);
-  }
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -107,7 +120,13 @@ function Create() {
           inputProps={{ style: { fontSize: '1.5rem' } }}
         />
       </div>
-      <SurveyForm questions={questions} canAnswer={false} deleteHandler={deleteHandler} />
+      <SurveyForm
+        questions={questions}
+        canAnswer={false}
+        upArrowHandler={upArrowHandler}
+        downArrowHandler={downArrowHandler}
+        deleteHandler={deleteHandler}
+      />
       <AddCircleIcon
         onClick={() => handleClickOpen()}
         sx={{ fontSize: '3rem', cursor: 'pointer', marginBlockEnd: '1rem' }}
@@ -141,7 +160,11 @@ function Create() {
           </Button>
         </div>
       )}
-      <SnackBar snackBarOpen={snackBarOpen} snackBarClose={handleSnackClose} action='saved' />
+      <SnackBar
+        snackBarOpen={snackBarOpen}
+        snackBarClose={handleSnackClose}
+        action="saved"
+      />
     </div>
   );
 }
