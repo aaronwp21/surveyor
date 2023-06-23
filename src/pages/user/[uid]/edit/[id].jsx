@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
@@ -8,6 +8,7 @@ import SnackBar from '@/components/SnackBar';
 
 function Page() {
   const [snackBarOpen, setSnackBarOpen] = useState(false);
+  const [questions, setQuestions] = useState([]);
 
   const origin = window.location.origin;
   const id = window.location.href.match(/(?<=edit.)[^\]]+/)[0];
@@ -21,6 +22,12 @@ function Page() {
       }),
   });
 
+  useEffect(() => {
+    if (data) {
+      setQuestions(data.surveys[1])
+    }
+  }, [data])
+
   const mutation = useMutation({
     mutationFn: (answers) => {
       return axios.put(path, answers);
@@ -31,6 +38,15 @@ function Page() {
     mutation.mutate(vals);
     setSnackBarOpen(true);
   };
+
+  const deleteHandler = (index) => {
+    const newArr = questions.filter((question, i) => {
+      if(i !== index) {
+        return question;
+      }
+    })
+    setQuestions(newArr);
+  }
 
   const handleSnackClose = () => {
     setSnackBarOpen(false);
@@ -48,10 +64,15 @@ function Page() {
     <div className="flex flex-col items-center mt-8">
       <SurveyForm
         submitHandler={submitHandler}
-        questions={data.surveys[1]}
+        deleteHandler={deleteHandler}
+        questions={questions}
         canAnswer={false}
       />
-      <SnackBar snackBarOpen={snackBarOpen} snackBarClose={handleSnackClose} action='updated' />
+      <SnackBar
+        snackBarOpen={snackBarOpen}
+        snackBarClose={handleSnackClose}
+        action="updated"
+      />
     </div>
   );
 }
