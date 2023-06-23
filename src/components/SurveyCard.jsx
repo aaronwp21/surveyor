@@ -6,18 +6,18 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-export default function SurveyCard({ title, btn1, btn2, _id, type }) {
+export default function SurveyCard({ title, btn1 = '', btn2, _id, type }) {
   const router = useRouter();
-  let btn2Click = () => {}
+  let btn2Click = () => {};
 
-  if(type === 'answer') {
+  if (type === 'answer') {
     btn2Click = () => {
-      router.push(`/answer/${_id}`)
-    }
+      router.push(`/answer/${_id}`);
+    };
   } else {
     btn2Click = () => {
-      router.push(`/user/answers/${_id}`)
-    }
+      router.push(`/user/answers/${_id}`);
+    };
   }
 
   return (
@@ -28,8 +28,21 @@ export default function SurveyCard({ title, btn1, btn2, _id, type }) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button color='secondary' variant='contained' size="small">{btn1}</Button>
-        <Button color='primary' variant='contained' size="small" onClick={() => btn2Click()}>{btn2}</Button>
+        {btn1 ? (
+          <Button color="secondary" variant="contained" size="small">
+            {btn1}
+          </Button>
+        ) : (
+          ''
+        )}
+        <Button
+          color="primary"
+          variant="contained"
+          size="small"
+          onClick={() => btn2Click()}
+        >
+          {btn2}
+        </Button>
       </CardActions>
     </Card>
   );

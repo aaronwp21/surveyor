@@ -41,7 +41,6 @@ function AnswerSurveyCardList() {
           return (
             <SurveyCard
               title={survey.surveys[0]}
-              btn1="Preview"
               btn2="Answer"
               type='answer'
               _id={survey._id}
