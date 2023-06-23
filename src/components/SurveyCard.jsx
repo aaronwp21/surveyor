@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
+import useStore, { selectUser } from '@/store/store';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -8,7 +9,12 @@ import Typography from '@mui/material/Typography';
 
 export default function SurveyCard({ title, btn1 = '', btn2, _id, type }) {
   const router = useRouter();
+  const user = useStore(selectUser);
   let btn2Click = () => {};
+
+  const btn1Click = () => {
+    router.push(`/user/edit/${_id}`);
+  };
 
   if (type === 'answer') {
     btn2Click = () => {
@@ -29,7 +35,7 @@ export default function SurveyCard({ title, btn1 = '', btn2, _id, type }) {
       </CardContent>
       <CardActions>
         {btn1 ? (
-          <Button color="secondary" variant="contained" size="small">
+          <Button color="secondary" variant="contained" size="small" onClick={() => btn1Click()}>
             {btn1}
           </Button>
         ) : (

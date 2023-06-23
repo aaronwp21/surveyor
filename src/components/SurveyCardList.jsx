@@ -4,7 +4,6 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 function SurveyCardList({surveys}) {
-  console.log(surveys)
   return (
     <div className="w-[80%] m-auto grid grid-cols-3 gap-4 justify-center">
     {surveys.length === 0 ? (

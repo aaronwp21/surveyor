@@ -51,7 +51,7 @@ function Page() {
         questions={data.surveys[1]}
         canAnswer={true}
       />
-      <SnackBar snackBarOpen={snackBarOpen} snackBarClose={handleSnackClose} action='updated' />
+      <SnackBar snackBarOpen={snackBarOpen} snackBarClose={handleSnackClose} action='answered' />
     </div>
   );
 }
