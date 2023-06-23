@@ -28,26 +28,38 @@ function SurveyForm({ submitHandler, deleteHandler, questions, canAnswer }) {
         {questions.map((question, i) => {
           if (question.type === 'text') {
             return (
-              <div key={i} className='relative'>
+              <div key={i} className="relative">
                 <TextInput
                   iteration={i}
                   control={control}
                   errors={errors}
                   question={question.question}
                 />
-                <div className='absolute top-[50%] left-[105%] translate-y-[-50%] cursor-pointer'><DeleteIcon /></div>
+                <div
+                  onClick={() => deleteHandler(i)}
+                  className="absolute top-[50%] left-[105%] translate-y-[-50%] cursor-pointer"
+                >
+                  <DeleteIcon />
+                </div>
               </div>
             );
           } else {
             return (
-              <RadioInput
-                key={i}
-                iteration={i}
-                control={control}
-                question={question.question}
-                option1={question.option1}
-                option2={question.option2}
-              />
+              <div key={i} className='relative'>
+                <RadioInput
+                  iteration={i}
+                  control={control}
+                  question={question.question}
+                  option1={question.option1}
+                  option2={question.option2}
+                />
+                <div
+                  onClick={() => deleteHandler(i)}
+                  className="absolute top-[50%] left-[105%] translate-y-[-50%] cursor-pointer"
+                >
+                  <DeleteIcon />
+                </div>
+              </div>
             );
           }
         })}

@@ -40,8 +40,13 @@ function Create() {
     setQuestions([...questions, vals]);
   };
 
-  const deleteHandler = () => {
-    
+  const deleteHandler = (index) => {
+    const newArr = questions.filter((question, i) => {
+      if(i !== index) {
+        return question;
+      }
+    })
+    setQuestions(newArr);
   }
 
   const handleClickOpen = () => {
@@ -102,7 +107,7 @@ function Create() {
           inputProps={{ style: { fontSize: '1.5rem' } }}
         />
       </div>
-      <SurveyForm questions={questions} canAnswer={false} />
+      <SurveyForm questions={questions} canAnswer={false} deleteHandler={deleteHandler} />
       <AddCircleIcon
         onClick={() => handleClickOpen()}
         sx={{ fontSize: '3rem', cursor: 'pointer', marginBlockEnd: '1rem' }}
