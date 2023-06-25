@@ -3,7 +3,8 @@ import axios from 'axios';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { arrayMoveImmutable } from 'array-move';
 import { useRouter } from 'next/router';
-import TextField from '@mui/material/TextField'
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import SurveyForm from '@/components/forms/SurveyForm';
 import SnackBar from '@/components/SnackBar';
@@ -28,30 +29,32 @@ function Page() {
 
   useEffect(() => {
     if (data) {
-      setTitleVal(data.surveys[0])
-      setQuestions(data.surveys[1])
+      setTitleVal(data.surveys[0]);
+      setQuestions(data.surveys[1]);
     }
-  }, [data])
+  }, [data]);
 
   const mutation = useMutation({
-    mutationFn: (answers) => {
-      return axios.put(path, answers);
+    mutationFn: (surveys) => {
+      return axios.post(path, surveys);
     },
   });
 
-  const submitHandler = (vals) => {
+  const submitHandler = () => {
     if (titleVal === '') {
       setTitleError(true);
     } else {
-      const uid = user.uid;
       const survey = [titleVal, questions];
-      const data = { owner: uid, surveys: survey };
-      mutation.mutate(data);
+      mutation.mutate(survey);
       setTitleVal('');
       setTitleError(false);
       setSnackBarOpen(true);
     }
-    // mutation.mutate(vals);
+  };
+
+  const reset = () => {
+    setTitleVal(data.surveys[0]);
+    setQuestions(data.surveys[1]);
   };
 
   const handleTitleChange = (e) => {
@@ -59,25 +62,25 @@ function Page() {
   };
 
   const upArrowHandler = (index) => {
-    const newIndex = index - 1
+    const newIndex = index - 1;
     const newArr = arrayMoveImmutable(questions, index, newIndex);
     setQuestions(newArr);
   };
 
   const downArrowHandler = (index) => {
-    const newIndex = index + 1
+    const newIndex = index + 1;
     const newArr = arrayMoveImmutable(questions, index, newIndex);
     setQuestions(newArr);
   };
 
   const deleteHandler = (index) => {
     const newArr = questions.filter((question, i) => {
-      if(i !== index) {
+      if (i !== index) {
         return question;
       }
-    })
+    });
     setQuestions(newArr);
-  }
+  };
 
   const handleSnackClose = () => {
     setSnackBarOpen(false);
@@ -115,6 +118,24 @@ function Page() {
         canAnswer={false}
         canEdit={true}
       />
+      <div className="flex justify-center">
+        <Button
+          type="reset"
+          onClick={() => reset()}
+          variant="contained"
+          sx={{ mr: 2 }}
+        >
+          Reset
+        </Button>
+        <Button
+          type="submit"
+          primary="true"
+          variant="contained"
+          onClick={() => submitHandler()}
+        >
+          Submit
+        </Button>
+      </div>
       <SnackBar
         snackBarOpen={snackBarOpen}
         snackBarClose={handleSnackClose}

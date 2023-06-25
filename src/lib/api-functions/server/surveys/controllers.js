@@ -27,7 +27,7 @@ const getSurveys = async (req, res) => {
 };
 
 const getUserSurveys = async (req, res) => {
-  const {id} = req.params;
+  const { id } = req.params;
 
   try {
     let data = await fetchUserSurveys(id);
@@ -36,7 +36,7 @@ const getUserSurveys = async (req, res) => {
     console.log(err);
     res.status(500).send(err);
   }
-}
+};
 
 const addSurvey = async (req, res) => {
   let surveyData = { ...req.body };
@@ -60,23 +60,16 @@ const addSurvey = async (req, res) => {
 };
 
 const updateSurvey = async (req, res) => {
-  const { id } = req.params;
+  const { _id } = req.params;
 
-  if (!id) {
+  if (!_id) {
     return res.status(400).json({ message: 'No id provided to update' });
   }
 
-  let updates = { ...req.body };
+  let updates = [...req.body];
 
   try {
-    updates = await updateSurveySchema.validate(updates);
-  } catch (err) {
-    console.log(err);
-    return res.status(400).json(err);
-  }
-
-  try {
-    const result = await update(id, updates);
+    const result = await update(_id, updates);
     if (result.n === 0) return res.status(404).send({ message: 'Not Found' });
     return res.status(200).send({ message: 'Updated' });
   } catch (err) {
@@ -125,4 +118,11 @@ const removeSurvey = async (req, res) => {
   }
 };
 
-export { getSurveys, getUserSurveys, addSurvey, updateSurvey, updateAnswers, removeSurvey };
+export {
+  getSurveys,
+  getUserSurveys,
+  addSurvey,
+  updateSurvey,
+  updateAnswers,
+  removeSurvey,
+};

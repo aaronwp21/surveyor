@@ -22,7 +22,7 @@ export const add = async (data) => {
 };
 
 export const update = async (id, updates) => {
-  return await Survey.updateOne({ _id: id }, updates);
+  return await Survey.updateOne({ _id: id }, { $set: { surveys: updates } });
 };
 
 export const updateAnswersArray = async (id, updates) => {

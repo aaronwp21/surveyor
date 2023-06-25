@@ -1,6 +1,7 @@
 import nc from 'next-connect-v0';
 
 import {
+  updateSurvey,
   updateAnswers,
   getSurveys,
 } from '@/lib/api-functions/server/surveys/controllers';
@@ -29,6 +30,9 @@ const handler = nc({
   })
   .get(baseRoute, async (req, res) => {
     getSurveys(req, res);
+  })
+  .post(baseRoute, async (req, res) => {
+    updateSurvey(req, res)
   })
   .put(baseRoute, async (req, res) => {
     updateAnswers(req, res);
