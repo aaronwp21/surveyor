@@ -46,7 +46,6 @@ function Page() {
     } else {
       const survey = [titleVal, questions];
       mutation.mutate(survey);
-      setTitleVal('');
       setTitleError(false);
       setSnackBarOpen(true);
     }
