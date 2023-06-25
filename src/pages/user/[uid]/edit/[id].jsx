@@ -3,12 +3,15 @@ import axios from 'axios';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { arrayMoveImmutable } from 'array-move';
 import { useRouter } from 'next/router';
+import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography';
 import SurveyForm from '@/components/forms/SurveyForm';
 import SnackBar from '@/components/SnackBar';
 
 function Page() {
   const [snackBarOpen, setSnackBarOpen] = useState(false);
+  const [titleVal, setTitleVal] = useState('');
+  const [titleError, setTitleError] = useState(false);
   const [questions, setQuestions] = useState([]);
 
   const origin = window.location.origin;
@@ -25,6 +28,7 @@ function Page() {
 
   useEffect(() => {
     if (data) {
+      setTitleVal(data.surveys[0])
       setQuestions(data.surveys[1])
     }
   }, [data])
@@ -36,8 +40,22 @@ function Page() {
   });
 
   const submitHandler = (vals) => {
-    mutation.mutate(vals);
-    setSnackBarOpen(true);
+    if (titleVal === '') {
+      setTitleError(true);
+    } else {
+      const uid = user.uid;
+      const survey = [titleVal, questions];
+      const data = { owner: uid, surveys: survey };
+      mutation.mutate(data);
+      setTitleVal('');
+      setTitleError(false);
+      setSnackBarOpen(true);
+    }
+    // mutation.mutate(vals);
+  };
+
+  const handleTitleChange = (e) => {
+    setTitleVal(e.target.value);
   };
 
   const upArrowHandler = (index) => {
@@ -75,6 +93,19 @@ function Page() {
 
   return (
     <div className="flex flex-col items-center mt-8">
+      <div className="flex items-center gap-4 mb-8">
+        <Typography component="p" variant="h5">
+          Survey Title:{' '}
+        </Typography>
+        <TextField
+          value={titleVal}
+          error={titleError}
+          helperText={titleError ? 'Title cannot be empty' : ''}
+          onChange={handleTitleChange}
+          variant="standard"
+          inputProps={{ style: { fontSize: '1.5rem' } }}
+        />
+      </div>
       <SurveyForm
         submitHandler={submitHandler}
         upArrowHandler={upArrowHandler}
@@ -82,6 +113,7 @@ function Page() {
         deleteHandler={deleteHandler}
         questions={questions}
         canAnswer={false}
+        canEdit={true}
       />
       <SnackBar
         snackBarOpen={snackBarOpen}

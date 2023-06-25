@@ -14,6 +14,7 @@ function SurveyForm({
   deleteHandler,
   questions,
   canAnswer,
+  canEdit=false
 }) {
   const {
     handleSubmit,
@@ -122,7 +123,7 @@ function SurveyForm({
             );
           }
         })}
-        {questions.length === 0 || canAnswer === false ? (
+        {questions.length === 0 || (canAnswer === false && canEdit === false) ? (
           ''
         ) : (
           <div className="flex justify-center">
